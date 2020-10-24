@@ -166,6 +166,8 @@ git_ref_posted=$( echo "${git_refs_response}" | jq .ref | tr -d '"' )
 echo "::debug::${git_refs_response}"
 if [ "${git_ref_posted}" = "refs/tags/${new}" ]; then
   exit 0
+else if [ "$default_semvar_bump" == "none" ]; then
+  echo "Default bump was set to none. Skipping..."; exit 0 
 else
   echo "::error::Tag was not created properly."
   exit 1
